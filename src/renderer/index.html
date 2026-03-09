@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
+  <title>Review Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Custom title bar -->
+  <div class="titlebar">
+    <span class="titlebar-title">🌿 REVIEW ASSISTANT</span>
+    <div class="titlebar-controls">
+      <button class="tb-btn" id="btn-minimize">&#8722;</button>
+      <button class="tb-btn" id="btn-maximize">&#9633;</button>
+      <button class="tb-btn tb-close" id="btn-close">&#10005;</button>
+    </div>
+  </div>
+
+  <!-- Update banner (hidden until update found) -->
+  <div class="update-banner" id="update-banner" style="display:none">
+    <span id="update-text" class="update-link"></span>
+    <button class="update-dismiss" id="update-dismiss">✕</button>
+  </div>
+
+  <!-- Path bar -->
+  <div class="path-bar">
+    <span id="path-display">⚠ No root folder set — open Settings to configure</span>
+    <div class="path-bar-actions">
+      <button class="icon-btn" id="btn-refresh" title="Refresh">↻ Refresh</button>
+      <button class="icon-btn" id="btn-settings" title="Settings">⚙ Settings</button>
+    </div>
+  </div>
+
+  <!-- Main folder list -->
+  <div class="folder-list" id="folder-list">
+    <div class="empty-state" id="empty-state">No root folder configured.<br>Click ⚙ Settings to get started.</div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar">
+    <span class="status-text" id="status-text">No folders loaded.</span>
+    <button class="submit-btn" id="btn-submit">▶ Generate &amp; Open Reviews</button>
+  </div>
+
+  <!-- Settings panel (hidden by default) -->
+  <div class="modal-overlay" id="settings-overlay" style="display:none">
+    <div class="modal">
+      <div class="modal-header">
+        <span>⚙ Settings</span>
+        <button class="modal-close" id="settings-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="field-label">📂 Root Folder Path</label>
+        <div class="input-row">
+          <input type="text" id="cfg-root-folder" placeholder="C:\Users\You\Reviews" class="text-input">
+          <button class="secondary-btn" id="cfg-browse">Browse</button>
+        </div>
+
+        <label class="field-label">🤖 Anthropic API Key</label>
+        <input type="password" id="cfg-api-key" placeholder="sk-ant-..." class="text-input">
+        <a class="help-link" id="cfg-api-link" href="#">🔗 Get your API key at console.anthropic.com/settings/keys</a>
+
+        <label class="field-label">🌐 Review Platform URL</label>
+        <input type="text" id="cfg-platform-url" placeholder="hamandron.com" class="text-input">
+        <span class="field-hint">Works with some review platforms — enter your site URL.<br>Example: hamandron.com or www.hamandron.com</span>
+
+        <label class="field-label">🎨 Theme</label>
+        <div class="theme-selector">
+          <button class="theme-btn" data-theme="dark">🌙 Dark</button>
+          <button class="theme-btn" data-theme="light">☀️ Light</button>
+          <button class="theme-btn" data-theme="system">💻 System</button>
+        </div>
+
+        <div class="modal-footer">
+          <button class="submit-btn full-width" id="cfg-save">Save Settings</button>
+          <div class="credits">
+            <span id="credits-text">Developed by Damon Downing, 2026</span>
+            <span id="credits-version"></span>
+            <a id="credits-update" href="#" style="display:none"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login dialog -->
+  <div class="modal-overlay" id="login-overlay" style="display:none">
+    <div class="modal modal-sm">
+      <div class="modal-header"><span>🔐 Login Required</span></div>
+      <div class="modal-body">
+        <p class="modal-text">A browser window has opened.<br>Log in to your account, then click Continue.</p>
+        <button class="submit-btn full-width" id="btn-login-done">✅ I'm Logged In — Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
